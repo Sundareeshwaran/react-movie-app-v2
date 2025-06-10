@@ -36,9 +36,9 @@ const App = () => {
             query
           )}&region=IN&language=en-US`
         : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc&region=IN&language=en-US&with_origin_country=IN`;
+
       const response = await fetch(endpoint, API_OPTIONS);
 
-      // If the response is not ok, throw the error
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -50,11 +50,30 @@ const App = () => {
         setMovieList([]);
         return;
       }
-      setMovieList(data.results || []);
 
-      // Update search count in Appwrite database
-      if (query && data.results.length > 0) {
-        await updateSearchCount(query, data.results[0]);
+      let filteredResults = data.results || [];
+
+      // 🔍 Filter for Indian languages if it's a search query
+      if (query) {
+        const indianLanguages = [
+          "hi",
+          "ta",
+          "te",
+          "ml",
+          "kn",
+          "mr",
+          "bn",
+          "pa",
+        ];
+        filteredResults = filteredResults.filter((movie) =>
+          indianLanguages.includes(movie.original_language)
+        );
+      }
+
+      setMovieList(filteredResults);
+
+      if (query && filteredResults.length > 0) {
+        await updateSearchCount(query, filteredResults[0]);
       }
     } catch (error) {
       console.error("Error fetching movies: ", error);

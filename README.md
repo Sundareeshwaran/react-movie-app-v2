@@ -1,5 +1,5 @@
 
-# React Movie App - Indian Movie Explorer 🎬
+# 🇮🇳 React Movie App - Indian Movie Explorer 🎬
 
 A React-based movie discovery app that helps users find trending and popular Indian movies. It integrates with [The Movie Database (TMDB)](https://www.themoviedb.org/) API and supports search, trending section, and seamless IMDb redirection.
 

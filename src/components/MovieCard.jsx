@@ -15,7 +15,7 @@ const MovieCard = ({
     window.open(imdbUrl + title, "_blank");
   };
   return (
-    <div id={id} className="movie-card" onClick={goToImdb}>
+    <div id={id} className="movie-card cursor-pointer" onClick={goToImdb}>
       <img
         src={
           poster_path
